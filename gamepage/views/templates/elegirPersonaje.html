@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 lista-mis-personajes">
+        <h1>With what character do you want to play today?</h1>
+        <br>
+        <div class="row">
+        <!-- personajes -->
+            <div class="col-xs-12 mis-personajes">
+                <div @click="eligePersonaje('{NOMBRE}')" class="personajes"><img src="{IMAGEN}" alt="" class="img-personaje-galeria"></div>
+                <span>Nick: {NOMBRE}, </span>
+                <span>Lvl: {NIVEL}, </span>
+                <span>Exp: {EXPERIENCIA}/{MAXEXPERIENCIA}</span>
+                <br>
+                <br>
+                <button @click="eliminarPersonaje('{NOMBRE}')" class="elimina-personaje">Delete this Character</button>
+            </div>
+            <br>
+        <!-- personajes -->
+           
+            <div v-if="'{NUMPERSONAJES}'!=='{MAXNUMPERSONAJES}'" class="col-xs-12">
+                <br>
+                <button @click="anadePersonaje()" class="anade-personaje">
+                    Add character
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>

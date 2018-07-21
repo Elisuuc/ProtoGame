@@ -1,0 +1,151 @@
+<div v-if="!combatiendo" class="row">
+    <div class="col-xs-8 col-md-4">
+        <div class="row">
+
+            <!--ESTADISTICAS DEL PERSONAJE-->
+            <div id="stats" class="col-xs-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Vitality</h5>
+                        <span>{{misStats.Vitalidad}} PS</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Resist.</h5>
+                        <span>{{misStats.Resistencia}}%</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Strengh</h5>
+                        <span>X{{misStats.Fuerza}}</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Agility</h5>
+                        <span>{{misStats.Agilidad}}%</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Skill</h5>
+                        <span>{{misStats.Destreza}}%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--PREVIEW DEL PERSONAJE-->
+            <div class="col-xs-6 preview-personaje">
+                <div id="personaje">
+                    <!--ANIMACION EN CSS DE LOS PERSONAJES-->
+                </div>
+            </div>
+            
+            <!--ARMAS Y ARMADURAS EQUIPADAS EN EL PERSONAJE-->
+            <div class="col-xs-2 equipamiento">
+                <div class="row">
+                    <div @click="modalObjetos=!modalObjetos; equipamiento=!equipamiento;" class="col-xs-12 boton-equipamiento">
+                        <h5>Inv.</h5>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 objetos-equipados">
+                        <div class="row">
+                            <div v-for="objeto of objetos" :key="objeto.nombreObjeto" v-if="objeto.TipoDeObjeto!=='consumable' && objeto.equipado==='1'">
+                                <img class="objetos-inventario" :src="objeto.imagenes" @click="actualizarEquipo(objeto)"
+                                data-placement="bottom" data-toggle="tooltip" :title="objeto.descripcion">
+                                <div class="cantidad-objeto">X{{objeto.cantidad}}</div>
+                            </div><!--V-for de los objetos NO consumibles-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--OBJETOS CONSUMIBLES EQUIPADOS EN EL PERSONAJE-->
+        <div class="row">
+            <div class="col-xs-10 consumibles">
+                <div class="col-xs-8 col-xs-offset-2 consumibles-equipados">
+                    <div v-for="objeto of objetos" :key="objeto.nombreObjeto" v-if="objeto.TipoDeObjeto==='consumable' && objeto.equipado==='1'">
+                        <img class="objetos-inventario" :src="objeto.imagenes" @click="actualizarEquipo(objeto)"
+                        data-placement="right" data-toggle="tooltip" :title="objeto.descripcion">
+                        <div class="cantidad-objeto">X{{objeto.cantidad}}</div>
+                    </div><!--V-for de los objetos consumibles-->
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <button @click="modalObjetos=!modalObjetos; buscadorAmigos=!buscadorAmigos;" class="col-xs-10 nuevos-amigos">
+                <h3>Find a fighter!</h3>
+            </button>
+        </div>
+        <div class="row">
+            <button @click="modalObjetos=!modalObjetos; listaAmigos=!listaAmigos; verAmigos();" class="col-xs-10 mis-amigos">
+                <h3>My fighter friends</h3>
+            </button>
+        </div>
+        <div class="row">
+            <button @click="volverEscoger()" class="col-xs-10 otro-personaje">
+                <h3>Select other character</h3>
+            </button>
+        </div>
+        <div class="row">
+            <button @click="cerrarSesion()" class="col-xs-10 cerrar-sesion">
+                <h3>Logout</h3>
+            </button>
+        </div>
+    </div>
+
+
+    <!--COMBATES RECIBIDOS-->
+    <div class="col-xs-4 lista-combates">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 info-personaje">
+                <p>Nick: {{mipersonaje.nickName}}</p>
+                <p>Level: {{mipersonaje.nivel}}</p>
+                <p>Exp: {{mipersonaje.experiencia}}/{{mipersonaje.maxExperiencia}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div v-for="combate of listaCombates"
+                class="row">
+                    <div class="col-xs-12 combates">
+                        {{combate.jugador1.nick}} wants to fight with you!!
+                        <!--<button @click="aceptarCombate(combate.id);" class="acepta-combate">Accept</button>-->
+                        <button class="acepta-combate">Accept</button>
+                        <button @click="rechazaCombate(combate.id);" class="rechaza-combate">Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--RANKING GLOBAL-->
+    <div class="col-xs-3 col-xs-offset-1 ranking">
+        <br>
+        <div class="row">
+            <div class="col-xs-12 titulo-ranking">
+                <h4>Global Ranking</h4>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 lista-ranking" v-for="(personaje, index) of ranking">
+                <span>{{index+1}}. {{personaje.nickName}}</span> ----------------- <span>{{personaje.puntuacion}}</span>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+

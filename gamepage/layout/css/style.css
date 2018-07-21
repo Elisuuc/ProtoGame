@@ -1,0 +1,435 @@
+/*GENERAL*/
+body{
+    font-family: 'Gloria Hallelujah', cursive;
+    background: black;
+    color:white;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+/*********/
+
+
+/*titulo de inicio*/
+.titulo{
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    transform: scale(2,2);
+    margin-top: 100px;
+}
+/******************/
+
+
+/*boton de play*/
+
+.play{
+    color: white;
+
+    background-color: transparent;
+    border-style: solid;
+    border-width: 3px;
+    border-color: white;
+    position: absolute;
+    margin-left:45%;
+    font-size: 30px;
+    margin-top:150px;
+    padding: 10px 20px 10px 20px;
+}
+
+.play:hover{
+    color:black;
+    background-color: white;
+}
+
+/***************/
+
+/*pantalla de carga*/
+#pantalla-carga{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    z-index: 2001;
+}
+/*******************/
+
+/*estilo para los formularios de la pagina*/
+.formulario{
+    overflow: hidden;
+    margin-top:50px;
+    /*background: rgba(255, 255, 255, 0.9) !important;*/
+}
+/******************************************/
+
+
+/*estilos para el registro de personaje*/
+#personaje{
+    margin: 110px auto;
+}
+.preview-personaje{
+    background-image: -webkit-linear-gradient(top, rgb(212, 155, 32), black, rgb(129, 129, 255)); 
+    background-image: -moz-linear-gradient(top, rgb(212, 155, 32), black, rgb(129, 129, 255)); 
+    background-image: -o-linear-gradient(top, rgb(212, 155, 32), black, rgb(129, 129, 255)); 
+    background-image: linear-gradient(to top, rgb(212, 155, 32), black, rgb(129, 129, 255));
+    border-style: solid;
+    border-color: black;
+    height: 300px;
+    padding-left: 60px;
+}
+
+.nick-personaje{
+    background-color: rgb(117, 144, 204);
+    height: 100px;
+    border-style: solid;
+    border-color: black;
+    border-top-style: none;
+}
+.nick{
+    margin-top: 5px; 
+}
+
+
+.galeria-personajes{
+    height: 400px;
+    position: relative;
+}
+.img-personaje-galeria{
+    margin: auto;
+    width: 90px;
+    height: 90px;
+    object-fit: none;
+    object-position: 0px 10px;
+}
+
+.personajes{
+    height: 100px;
+
+    background-image: -webkit-linear-gradient(top,black, rgb(129, 129, 255)); 
+    background-image: -moz-linear-gradient(top, black, rgb(129, 129, 255)); 
+    background-image: -o-linear-gradient(top, black, rgb(129, 129, 255)); 
+    background-image: linear-gradient(to top, black, rgb(129, 129, 255));
+
+    margin:4px 0px 2px 0px;
+    border-style: solid;
+    border-color: white;
+}
+
+.personajes:hover{
+    border-color:yellow;
+}
+.personajes:active{
+    border-color:red;
+}
+
+#points{ 
+    height: 400px;
+    overflow: auto; 
+}
+.save-character{
+    margin:20px auto 50px auto;
+}
+/****************************************/
+
+/*Estilos escoge tu personaje*/
+
+.lista-mis-personajes{
+    text-align: center;
+    margin-top:50px;
+}
+
+/*****************************/
+
+/*****Panel Principal**********/
+
+/*preview*/
+hr{
+    margin: 10px auto 0 auto;
+}
+
+#stats{
+    line-height: 11px ;
+    color: white;
+    background-color: black;
+    height: 300px;
+    text-align: center;
+}
+
+.equipamiento{
+    background-color:black;
+    height: 300px;
+    color:white;
+    text-align: center;
+}
+
+
+.boton-equipamiento{
+    background-color: rgb(68, 68, 68);
+}
+
+.objetos-equipados{
+    height: 250px;
+    background-color: rgb(46, 46, 46);
+    border-style: solid;
+    border-color: black;
+    border-radius: 7px;
+    box-shadow: 0 0 20px black inset;
+    margin-top: 10px;
+}
+
+.objetos-equipados .objetos-inventario{
+    margin-left: 10px;
+    margin-top:10px;
+}
+
+.boton-equipamiento:hover{
+    background-color:rgba(255,255,255,0.7);
+}
+
+.consumibles{
+    height: 70px;
+    background-color: black;
+}
+
+.consumibles-equipados{
+    height: 70px;
+    background-color: rgb(46, 46, 46);
+    border-style: solid;
+    border-color: black;
+    border-radius: 7px;
+    box-shadow: 0 0 20px black inset;
+    color: white;
+}
+
+
+/******/
+
+/*modal objetos equipamiento*/
+
+.moda{
+    background-color: rgba(0,0,0,0.7);
+    height: 1000000px;
+    z-index: 2000;
+    position: fixed;
+    color: white;
+}
+
+.moda-objetos{
+    height: 500px;
+    margin-top: 50px;
+    background: black;
+    box-shadow:0px 2px 10px white;
+    padding-top: 20px;
+    overflow-y: auto ;
+}
+
+.moda-objetos h1{
+    text-align: center;
+}
+
+.boton-salir-modal{
+    background-color: transparent;
+    border-style: none;
+    margin: 10px 0 0 10px;
+    font-family: 1vw;
+    float: left;
+}
+
+.objetos-inventario{
+    width: 50px;
+    height: 50px;
+    object-fit: none;
+    object-position: -2px 0px;
+    border-style:ridge;
+    border-color: rgb(94, 57, 15);
+    border-width: 2px;
+    margin-top: 10px;
+    float: left;
+    margin-left: 7px;
+    z-index: 3000;
+}
+.objetos-inventario:hover{
+    border-color: yellow;
+}
+.objetos-inventario:active{
+    border-color: red;
+}
+
+.cantidad-objeto-inv{
+    float: left;
+}
+
+.listas-inventario{
+    background-color: rgb(46, 46, 46);
+    border-radius: 5px;
+    height: 300px;
+    box-shadow: 0px 0px 10px black inset;
+    overflow-y: auto;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+/****************************/
+
+/**SISTEMA DE BUSQUEDA DE AMIGOS**/
+.nuevos-amigos{
+    height: 70px;
+    border-style: solid;
+    border-color: black;
+    border-width: 10px;
+    box-shadow: 0 0 20px black inset;
+    background-color: rgb(77, 62, 35);
+    color: lightgray;
+}
+.nuevos-amigos h3{
+    margin-top: 7px;
+}
+.nuevos-amigos:hover{
+    background-color: rgb(116, 108, 93);
+    color: lightgray;
+}
+.nuevos-amigos:active{
+    box-shadow: 0 0 20px rgb(238, 238, 238) inset;
+}
+
+.mis-amigos{
+    height: 70px;
+    border-style: solid;
+    border-color: black;
+    border-width: 10px;
+    box-shadow: 0 0 20px black inset;
+    background-color: rgb(66, 67, 105);
+    color: lightgray;
+}
+.mis-amigos h3{
+    margin-top: 7px;
+}
+.mis-amigos:hover{
+    background-color: rgb(92, 93, 114);
+    color: lightgray;
+}
+.mis-amigos:active{
+    box-shadow: 0 0 20px rgb(238, 238, 238) inset;
+}
+.otro-personaje{
+    height: 70px;
+    border-style: solid;
+    border-color: black;
+    border-width: 10px;
+    box-shadow: 0 0 20px black inset;
+    background-color: rgb(66, 105, 66);
+    color: lightgray;
+}
+.otro-personaje h3{
+    margin-top: 7px;
+}
+.otro-personaje:hover{
+    background-color: rgb(88, 109, 85);
+    color: lightgray;
+}
+.otro-personaje:active{
+    box-shadow: 0 0 20px rgb(238, 238, 238) inset;
+}
+
+.cerrar-sesion{
+    height: 70px;
+    border-style: solid;
+    border-color: black;
+    border-width: 10px;
+    box-shadow: 0 0 20px black inset;
+    background-color: rgb(105, 66, 66);
+    color: lightgray;
+}
+.cerrar-sesion h3{
+    margin-top: 7px;
+}
+.cerrar-sesion:hover{
+    background-color: rgb(109, 85, 85);
+    color: lightgray;
+}
+.cerrar-sesion:active{
+    box-shadow: 0 0 20px rgb(238, 238, 238) inset;
+}
+
+/*invitaciones*/
+.amigo-encontrado{
+    height: auto;
+    background-color: gray;
+    box-shadow: 0 0 20px black inset;
+    border-radius: 20px;
+    margin-top:20px;
+    overflow: hidden;
+    padding: 10px 5px 10px 5px; 
+}
+
+.boton-invitar{
+    background-color: rgb(66, 67, 105);
+    box-shadow: 0 0 20px black inset;
+}
+
+.acepta-invitacion,.retar,.acepta-combate,.anade-personaje{
+    background-color: rgb(66, 67, 105);
+    box-shadow: 0 0 20px black inset;
+    padding: 5px;
+}
+
+.rechaza-invitacion,.eliminar-amigo,.rechaza-combate,.elimina-personaje{
+    background-color: rgb(122, 57, 57);
+    box-shadow: 0 0 20px black inset;
+    padding: 5px;
+}
+
+.invitaciones p{
+    margin-top:5px;
+}
+
+.amigos,.combates{
+    height: auto;
+    background-color: gray;
+    box-shadow: 0 0 20px black inset;
+    border-radius: 5px;
+    margin-top:20px;
+    overflow: hidden;
+    padding: 10px 5px 10px 5px; 
+    text-align: center;
+    color: white;
+}
+
+/*********************************/
+
+
+/******SISTEMA DE COMBATES********/
+
+.info-personaje{
+    color: white;
+    line-height: 8px;
+    text-align: center;
+    padding: 10px;
+    
+    background-image: -webkit-linear-gradient(top,black,gray); 
+    background-image: -moz-linear-gradient(top, black,gray); 
+    background-image: -o-linear-gradient(top, black,gray); 
+    background-image: linear-gradient(to top, black,gray);
+
+    box-shadow: 0 5px 20px black inset;
+}
+
+
+
+.lista-combates{
+    height: 510px;
+    background-color: black;
+    overflow-y: auto;
+}
+
+/******************************/
+
+/*Ranking global*/
+.ranking{
+    height: 580px;
+    background-color: rgb(83, 83, 83);
+    box-shadow: 0 5px 20px black inset;
+}
+.titulo-ranking{
+    text-align: center;
+}
+.lista-ranking{
+    text-align: center;
+}

@@ -1,0 +1,240 @@
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 formulario">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="row">
+                    <div class="col-xs-12 preview-personaje">
+                        <div id="personaje">
+                            <!--ANIMACION EN CSS DE LOS PERSONAJES-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 nick-personaje">
+                        <label class="nick">Your nick name:</label>
+                        <input v-model="nick" type="text" placeholder="Nick name..." class="form-control nick">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-8 galeria-personajes">
+                <ul class="nav nav-pills">
+                    <li class="active col-xs-12 col-sm-5"><a data-toggle="tab" href="#select">Select Character</a></li>
+                    <li class="col-xs-12 col-sm-5"><a data-toggle="tab" href="#points">Assign points</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="select" class="tab-pane fade in active galeria">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3 personajes" v-for="personaje of galeria" 
+                                @click='previewPersonaje(
+                                    personaje.imagenes,
+                                    personaje.nombre,
+                                    personaje.Vitalidad,
+                                    personaje.Resistencia,
+                                    personaje.Fuerza,
+                                    personaje.Agilidad,
+                                    personaje.Destreza
+                                )' 
+                                :key="personaje.nombre"><!--V-FOR QUE MUESTRA LOS PERSONAJES-->
+                                <img class="img-personaje-galeria" data-placement="bottom" data-toggle="tooltip" 
+                                :title="
+                                'Name: ' + personaje.nombre + ', \n' + 
+                                'Vitality: ' + personaje.Vitalidad + ', \n' +
+                                'Recistance: ' + personaje.Resistencia + '%' + ', \n' +
+                                'Strength: ' + 'X' + personaje.Fuerza + ', \n' +
+                                'Agility: ' + personaje.Agilidad + '%' + ', \n' +
+                                'Skill: ' + personaje.Destreza + '%'
+                                "
+                                :src="personaje.imagenes">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="points" class="tab-pane fade puntos">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3>Initial points: <span>{{ puntosIniciales }}</span></h3>
+                            </div>
+                        </div>
+            
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <!--BARRA DE LA VITALIDAD-->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span>Vitality: {{ Vitalidad }} PS /1000 PS</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" :style="{ width:pVida+'%', }">
+                                                <span class="sr-only">{{pVida}}% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group input-sm">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" @click="dPuntosV()">-</button>
+                                            </span>
+                                            <input type="text" class="form-control" :value="puntosVitalidad">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" @click="aPuntosV()">+</button>
+                                            </span>    
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                                <!--BARRA DE LA RESISTENCIA-->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span>Recistance: {{Resistencia}}% / 50%</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" :style="{width:pResistencia+'%',}">
+                                                <span class="sr-only">70% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group input-sm">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" @click="dPuntosR()">-</button>
+                                            </span>
+                                            <input type="text" class="form-control" :value="puntosResistencia">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" @click="aPuntosR()">+</button>
+                                            </span>    
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--BARRA DE LA FUERZA-->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span>Strength: X {{Fuerza}} / X 5</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" :style="{width:pFuerza+'%'}">
+                                                <span class="sr-only">70% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" @click="dPuntosF()">-</button>
+                                                </span>
+                                                <input type="text" class="form-control" :value="puntosFuerza">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" @click="aPuntosF()">+</button>
+                                                </span>    
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <!--BARRA DE LA AGILIDAD-->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span>Agility: {{Agilidad}}% / 50%</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" :style="{width:pAgilidad+'%'}">
+                                                <span class="sr-only">70% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" @click="dPuntosA()">-</button>
+                                                </span>
+                                                <input type="text" class="form-control" :value="puntosAgilidad">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" @click="aPuntosA()">+</button>
+                                                </span>    
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <!--BARRA DE LA DESTREZA-->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span>Skill: {{Destreza}}% / 30%</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" :style="{width:pDestreza+'%'}">
+                                                <span class="sr-only">70% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" @click="dPuntosD()">-</button>
+                                                </span>
+                                                <input type="text" class="form-control" :value="puntosDestreza">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" @click="aPuntosD()">+</button>
+                                                </span>    
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+
+                        <div v-if="existeNick" class="alert alert-danger">
+                            Nick name alredy exist!!
+                        </div>
+                        <div v-if="noNick" class="alert alert-danger">
+                            Please, set your nick name.
+                        </div>
+                        <div v-if="repartePuntos" class="alert alert-danger">
+                            Please, spend your points.
+                        </div>
+                        
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button @click="guardaPersonaje()" class="btn btn-default save-character col-xs-12">Save Character</button>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

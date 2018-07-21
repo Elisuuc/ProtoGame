@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>ProtoGame</title>
+
+        <!--FONT-->
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+        <!--BOOTSTRAP-->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!--MIS ESTILOS-->
+        <link rel="stylesheet" href="../layout/css/style.css"> 
+    </head>
+    <body>
+        
+        <!--PANTALLA DE CARGA-->
+        <div id="pantalla-carga"></div>
+
+        <!--TODA LA APP-->
+        <div id="app">
+            <!--MODAL DE OBJETOS-->
+            <div v-if="modalObjetos" class="col-xs-12 moda" name="fade">
+
+                <!--OBJETOS-->
+                <div v-if="equipamiento" class="col-xs-12 col-sm-6 col-sm-offset-3 moda-objetos">
+                    <button @click="modalObjetos=!modalObjetos; equipamiento=!equipamiento" class="boton-salir-modal">X</button>
+                    <h1>Inventory</h1>
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-1 listas-inventario">
+                        <div class="col-xs-12">
+                            <h4>Objects</h4>
+                            <hr>
+                        </div>
+                        <div v-for="objeto of objetos" :key="objeto.nombreObjeto" v-if="objeto.TipoDeObjeto!=='consumable' && objeto.equipado==='0'">
+                            
+                            <img class="objetos-inventario" :src="objeto.imagenes" @click="actualizarEquipo(objeto)"
+                            data-placement="right" data-toggle="tooltip" :title="objeto.descripcion">
+                            <div class="cantidad-objeto-inv">X{{objeto.cantidad}}</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-2 listas-inventario">
+                        <div class="col-xs-12">
+                            <h4>Consumables</h4>
+                            <hr>
+                        </div>
+                        <div v-for="objeto of objetos" :key="objeto.nombreObjeto" v-if="objeto.TipoDeObjeto==='consumable' && objeto.equipado==='0'"><!--PROVISIONAL-->
+                            
+                            <img class="objetos-inventario" :src="objeto.imagenes" @click="actualizarEquipo(objeto)"
+                            data-placement="right" data-toggle="tooltip" :title="objeto.descripcion">
+                            <div class="cantidad-objeto-inv">X{{objeto.cantidad}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Buscador amigos-->
+                <div v-if="buscadorAmigos" class="col-xs-12 col-sm-6 col-sm-offset-3 moda-objetos">
+                    <button @click="modalObjetos=!modalObjetos; buscadorAmigos=!buscadorAmigos" class="boton-salir-modal">X</button>
+                    <h1>Find a fighter!</h1>
+                    <br>
+                    <div class="input-group col-xs-8 col-xs-offset-2">
+                        <input v-model="samigo" type="text" class="form-control" placeholder="Search&hellip;">    
+                        <span class="input-group-btn">
+                            <button @click="getAmigo()" type="button" class="btn btn-default">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-1 amigos-encontrados">
+                        <h4>Your research</h4>
+                        <hr>
+                        <div v-if="samigoD!==''" class="col-xs-12">
+                            <div class="col-xs-12 amigo-encontrado">
+                                <p>NICK:{{samigoD.nickName}}</p>
+                                <p>Level: {{samigoD.nivel}}</p>
+                                <!--<p>Points: {{samigoD.puntos}}</p>-->
+                                <button @click="invitarAmigo(samigoD.nickName)" class="col-xs-12 boton-invitar">
+                                    Invite
+                                </button>
+                            </div>
+                        </div>
+                        <div v-else class="col-xs-12">
+                            <br>
+                            <br>
+                            <p>There is no result...</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-2 lista-invitaciones">
+                        <h4>Invitations</h4>
+                        <hr>
+                        <div v-for="invitacion of listaInvitaciones" 
+                        :key="invitacion.invitado" 
+                        class="col-xs-12 invitaciones">
+                            <p>{{invitacion.invita}} has invited you!</p>
+                            <button @click="aceptarInvitacion(invitacion.id,invitacion.invita)" class="acepta-invitacion">Accept</button>
+                            <button @click="rechazarInvitacion(invitacion.id,invitacion.invita)" class="rechaza-invitacion">Reject</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--lista de amigos-->
+                <div v-if="listaAmigos" class="col-xs-12 col-sm-6 col-sm-offset-3 moda-objetos">
+                    <button @click="modalObjetos=!modalObjetos; listaAmigos=!listaAmigos;" class="boton-salir-modal">X</button>
+                    <h1>My fighter friends</h1>
+                    <div v-for="amigo of misAmigos" class="col-xs-10 col-xs-offset-1 amigos">
+                        <p v-if="amigo.PERSONAJES_nickName!==mipersonaje.nickName">
+                            {{amigo.PERSONAJES_nickName}}
+                        </p>
+                        <p v-else>
+                            {{amigo.PERSONAJES_nickName1}}
+                        </p>
+                        
+                        <button v-if="amigo.PERSONAJES_nickName!==mipersonaje.nickName" 
+                        class="retar"
+                        @click="retar(amigo.PERSONAJES_nickName)">Challenge</button>
+                        <button v-else class="retar"
+                        @click="retar(amigo.PERSONAJES_nickName1)">Challenge</button>
+                        <button v-if="amigo.PERSONAJES_nickName!==mipersonaje.nickName" 
+                        class="eliminar-amigo"
+                        @click="eliminarAmigo(amigo.PERSONAJES_nickName)">Delete</button>
+                        <button v-else class="eliminar-amigo"
+                        @click="eliminarAmigo(amigo.PERSONAJES_nickName1)">Delete</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--SE INSERTA EL CONTENIDO DE LA PAGINA-->
+            <div class="container-fluid">
+                {CONTENT}
+            </div>
+        </div>
+
+        <!--CARGA DE LOS JAVASCRIPT-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase-firestore.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+        <!--MIS SCRIPTS-->
+        <script src="../layout/js/main.js"></script>
+
+    </body>
+</html>
